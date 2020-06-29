@@ -56,3 +56,21 @@ while next_chapter:
 
     next_page=True
 
+   
+# convert images to pdf
+os.chdir("C:/Users/colin.huang/Desktop/parse/slam dunk/")
+
+for l in sorted(os.listdir(), key=os.path.getctime):
+    dirname=os.path.join("C:/Users/colin.huang/Desktop/parse/slam dunk/",l)
+    os.chdir(dirname)    
+    with open('{0}.pdf'.format(l),"wb") as f:     
+        imgs = []
+        for fname in sorted(os.listdir(dirname), key=os.path.getctime):
+            if not fname.endswith(".png"):
+                continue
+            path = os.path.join(dirname, fname)
+            if os.path.isdir(path):
+                continue
+            imgs.append(path)
+            print(l+'------'+fname)
+        f.write(img2pdf.convert(imgs))
